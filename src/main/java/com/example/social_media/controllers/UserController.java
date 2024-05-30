@@ -2,15 +2,10 @@ package com.example.social_media.controllers;
 
 import java.util.List;
 
+import com.example.social_media.dtos.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.social_media.dtos.responseDto.UserResponseDto;
 import com.example.social_media.entities.User;
@@ -29,6 +24,12 @@ public class UserController {
         return ResponseEntity.ok().body(users);
     }
 
+    @GetMapping
+    public ResponseEntity<List<UserResponseDto>> getAllPageable(@RequestParam int page,@RequestParam int pageSize){
+        List<UserResponseDto> users = userService.getAllUsersPageable(page, pageSize);
+        return ResponseEntity.ok().body(users);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDto> findById(@PathVariable Long id){
         UserResponseDto foundUser = userService.findById(id);
@@ -36,7 +37,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserResponseDto> updateuser(@RequestBody User user,@PathVariable Long id){
+    public ResponseEntity<UserResponseDto> updateuser(@RequestBody UserDto user, @PathVariable Long id){
         UserResponseDto userToUpdate = userService.updateUser(user, id);
         return ResponseEntity.ok().body(userToUpdate);
     }
