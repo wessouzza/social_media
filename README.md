@@ -1,5 +1,5 @@
 # Social Media Backend
-Este projeto é o backend de uma mídia social, cujo posts são textos que podem receber curtidas e também comentários. Foi implementado o login utilizando Spring Security e tokens com JWT.
+Este projeto é o backend de uma mídia social(simplificada), cujo posts são textos que podem receber curtidas e também comentários. Foi implementado o login utilizando Spring Security e tokens com JWT.
 
 ## Tecnologias Utilizadas
 
