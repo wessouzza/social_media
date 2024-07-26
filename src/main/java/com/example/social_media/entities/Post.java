@@ -3,7 +3,9 @@ package com.example.social_media.entities;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -40,7 +42,7 @@ public class Post implements Serializable{
 
     @OneToMany
     @JoinColumn(name = "post_id")
-    private List<Likes> likes = new ArrayList<>();
+    private Set<Likes> likes = new HashSet<>();
 
     public Post(){}
 
@@ -91,11 +93,11 @@ public class Post implements Serializable{
         this.comments = comments;
     }
 
-    public List<Likes> getLikes() {
+    public Set<Likes> getLikes() {
         return likes;
     }
 
-    public void setLikes(List<Likes> likes) {
+    public void setLikes(Set<Likes> likes) {
         this.likes = likes;
     }
 

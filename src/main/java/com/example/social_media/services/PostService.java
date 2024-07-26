@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import com.example.social_media.dtos.PostsDto;
@@ -52,6 +53,15 @@ public class PostService {
         List<PostResponseDto> posts = uDto.getPosts()
             .stream().map(ResponseMapper::toPostResponseDto).collect(Collectors.toList());
         return posts;
+    }
+
+    public Page<PostResponseDto> getPostsPages(Long id, int page, int pageSize){
+        User user = userRepository.findById(id).orElseThrow(()-> new UserNotFoundException("user not found"));
+        Pageable pageable = PageRequest.of(page, pageSize, Sort.by(Sort.Direction.DESC, "id"));
+        Page<Post> posts = postRepository.findByUser(user, pageable);
+        List<PostResponseDto> postResponse = posts.stream().map(ResponseMapper::toPostResponseDto)
+                .collect(Collectors.toList());
+        return new PageImpl<>(postResponse, pageable, posts.getTotalElements());
     }
 
     public PostResponseDto updatePost(PostsDto post, Long id){
