@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -28,12 +28,13 @@ public class User implements Serializable{
 
     @NotNull(message = "This field can't be empty.")
     private String name;
-
+    
+    @Column(unique = true)
     @NotNull(message = "This field can't be empty.")
     @Email(message = "Insert a valid email.")
     private String email;
 
-    @Size(min = 6, max = 10, message = "The password must have between 6 and 10 characthers.")
+    //@Size(min = 6, max = 10, message = "The password must have between 6 and 10 characthers.")
     @NotNull(message = "Insert a password.")
     private String password;
    
